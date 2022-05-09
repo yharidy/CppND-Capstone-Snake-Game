@@ -97,8 +97,9 @@ void Game::Update() {
   player_occupied_cells.clear();
   
   // update player snake
-  auto ftr_player_snake = std::async(&Snake::Update, &_player_snake, &_obstacles, &player_occupied_cells);
-  ftr_player_snake.wait();
+  //auto ftr_player_snake = std::async(&Snake::Update, &_player_snake, &_obstacles, &player_occupied_cells);
+  //ftr_player_snake.wait();
+  _player_snake.Update(&_obstacles, &player_occupied_cells);
   std::pair<float, float> player_new_head = _player_snake.GetHeadPosition();
   int player_new_x = static_cast<int>(player_new_head.first);
   int player_new_y = static_cast<int>(player_new_head.second);
@@ -121,8 +122,9 @@ void Game::Update() {
   }
 
   // update automated snake
-  auto ftr_cpu_snake = std::async(&AutomatedSnake::Simulate, &_cpu_snake, _food, &_obstacles, &player_occupied_cells);
-  ftr_cpu_snake.wait();
+  //auto ftr_cpu_snake = std::async(&AutomatedSnake::Simulate, &_cpu_snake, _food, &_obstacles, &player_occupied_cells);
+  //ftr_cpu_snake.wait();
+  _cpu_snake.Simulate(_food, &_obstacles, &player_occupied_cells);
   std::pair<float, float> cpu_new_head = _cpu_snake.GetHeadPosition();
   int cpu_new_x = static_cast<int>(cpu_new_head.first);
   int cpu_new_y = static_cast<int>(cpu_new_head.second);
