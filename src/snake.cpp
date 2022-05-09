@@ -4,7 +4,6 @@
 #include "cell.h"
 #include "game.h"
 
-
 void Snake::init()
 {
   _grid_width = Params::kGridWidth;
@@ -18,7 +17,7 @@ Snake::Snake()
   _speed = 0.05F;
 }
 
-Snake::Snake(float speed, float head_x, float head_y) 
+Snake::Snake(float speed, float head_x, float head_y)
 {
   init();
   _head_x = head_x;
@@ -31,7 +30,7 @@ Snake::Direction Snake::GetDirection() const
   return this->_direction;
 }
 
-void Snake::SetDirection(Snake::Direction direction) 
+void Snake::SetDirection(Snake::Direction direction)
 {
   this->_direction = direction;
 }
@@ -71,10 +70,8 @@ std::vector<SDL_Point> Snake::GetBody() const
   return this->_body;
 }
 
-void Snake::Update(const std::vector<SDL_Point>* obstacles_ptr, std::vector<SDL_Point>* player_occupied_cells_ptr)
+void Snake::Update()
 {
-  _player_occupied_cells_ptr = player_occupied_cells_ptr;
-  _obstacles_ptr = obstacles_ptr;
   SDL_Point prev_cell{ static_cast<int>(_head_x), static_cast<int>(_head_y) }; // We first capture the head's cell before updating.
   UpdateHead();
   SDL_Point current_cell{ static_cast<int>(_head_x), static_cast<int>(_head_y) }; // Capture the head's cell after updating.
@@ -86,7 +83,6 @@ void Snake::Update(const std::vector<SDL_Point>* obstacles_ptr, std::vector<SDL_
   }
   UpdateOccupiedCells();
 }
-
 
 void Snake::UpdateHead()
 {
@@ -100,7 +96,7 @@ void Snake::UpdateHead()
     break;
 
   case Direction::kLeft:
-   _head_x -= _speed;
+    _head_x -= _speed;
     break;
 
   case Direction::kRight:
@@ -111,7 +107,7 @@ void Snake::UpdateHead()
   // Wrap the Snake around to the beginning if going off of the screen.
   _head_x = static_cast<float>(fmod(_head_x + _grid_width, _grid_width));
   _head_y = static_cast<float>(fmod(_head_y + _grid_height, _grid_height));
-  
+
   // Check if the snake has died.
   for (auto const& obstacle : *_obstacles_ptr) {
     if (static_cast<int>(_head_x) == obstacle.x && static_cast<int>(_head_y) == obstacle.y) {

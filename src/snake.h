@@ -29,14 +29,12 @@ public:
   int GetSize() const;
   bool GetState() const;
   void SetState(bool state);
-  std::pair<float,float> GetHeadPosition() const;
+  std::pair<float, float> GetHeadPosition() const;
   std::vector<SDL_Point> GetBody() const;
 
-  void Update(
-      const std::vector<SDL_Point>* obstalces_ptr,
-      std::vector<SDL_Point>* player_occupied_cells_ptr);
+  void Update();
   void GrowBody();
-  bool SnakeCell(int x, int y);  
+  bool SnakeCell(int x, int y);
 
 protected:
   void init();
@@ -54,7 +52,7 @@ protected:
   float _head_x;
   float _head_y;
   std::vector<SDL_Point> _body;
-  std::vector<SDL_Point>* _player_occupied_cells_ptr{nullptr};
-  const std::vector<SDL_Point>* _obstacles_ptr{nullptr};
+  std::vector<SDL_Point>* _player_occupied_cells_ptr{ nullptr };
+  const std::vector<SDL_Point>* _obstacles_ptr{ nullptr };
 };
 #endif
