@@ -123,12 +123,6 @@ void Snake::UpdateHead()
       _alive = false;
     }
   }
-  /*
-  for (auto& occupied_cell : *(this->_player_occupied_cells_ptr)) {
-    if (static_cast<int>(_head_x) == occupied_cell.x && static_cast<int>(_head_y) == occupied_cell.y)
-      _alive = false;
-  }
-  */
 }
 
 void Snake::UpdateBody(SDL_Point& current_head_cell, SDL_Point& prev_head_cell)

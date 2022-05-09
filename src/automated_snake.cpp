@@ -11,15 +11,14 @@ void AutomatedSnake::Simulate(
 {
   _player_occupied_cells_ptr = player_occupied_cells_ptr;
   _obstacles_ptr = obstacles_ptr;
-  SDL_Point previous_cell{ static_cast<int>(_head_x), static_cast<int>(_head_y) }; // We first capture the head's cell before updating.
+  SDL_Point previous_cell{ static_cast<int>(_head_x), static_cast<int>(_head_y) }; 
   std::vector<Cell> neighbors;
   AddNeighbors(previous_cell, neighbors);
   Cell target_cell = NextCell(target, neighbors);
   _direction = target_cell.direction;
   UpdateHead();
   SDL_Point current_cell{ static_cast<int>(_head_x), static_cast<int>(_head_y) };
-  // Update all of the body vector items if the snake head has moved to a new
-  // cell.
+
   if (current_cell.x != previous_cell.x || current_cell.y != previous_cell.y)
     UpdateBody(current_cell, previous_cell);
   UpdateOccupiedCells();

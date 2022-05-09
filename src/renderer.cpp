@@ -104,7 +104,7 @@ void Renderer::Render(Snake const player_snake, AutomatedSnake const cpu_snake, 
   SDL_RenderPresent(sdl_renderer);
 }
 
-void Renderer::UpdateWindowTitle(int player_score, int cpu_score, int level, int fps) {
-  std::string title{"Level:" + std::to_string(level) + " Player Score: " + std::to_string(player_score) +  " CPU Score: " + std::to_string(cpu_score) + " FPS: " + std::to_string(fps)};
+void Renderer::UpdateWindowTitle(int player_score, int cpu_score, int fps) {
+  std::string title{" Player Score: " + std::to_string(player_score) +  " CPU Score: " + std::to_string(cpu_score) + " FPS: " + std::to_string(fps)};
   SDL_SetWindowTitle(sdl_window, title.c_str());
 }

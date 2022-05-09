@@ -7,7 +7,6 @@
 #include "SDL.h"
 #include "params.h"
 #include "snake.h"
-#undef main
 
 class AutomatedSnake : public Snake
 {

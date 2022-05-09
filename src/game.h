@@ -32,10 +32,13 @@ class Game {
   std::uniform_int_distribution<int> _random_w;
   std::uniform_int_distribution<int> _random_h;
 
+  float _obstacle_area_ratio{0.02F};
+  int _level_1_score{ 5 };
+  int _level_2_score{ 10 };
   int _player_score{0};
   int _cpu_score{0};
-  int _level{0};
-  int _points_per_level{1};
+  float _initial_player_speed{ 0.1F };
+  float _initial_cpu_snake_speed{ 0.05F };
   void PlaceFood();
   void PlaceObstacles();
   void Update();

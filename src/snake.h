@@ -8,7 +8,7 @@
 #include "params.h"
 #undef main
 
-class Cell; 
+class Cell; //forward declaration
 
 class Snake
 {
