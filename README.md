@@ -21,17 +21,17 @@ If the player crosses the automated snake (body or head), it should die. The aut
 ## Rubric Points
 * Compiling and Testing:
   As in the Basic Build Instruction section above, the project code is able to compile and run without any errors.
-* Loops, Functions, I/O
+* Loops, Functions, I/O:
     The AutomatedSnake class as well as the Game::Update, Game::PlaceObstacles and Game:OccupiedCell Functionshas diverse if statements and for/while loops 
 	
-* Object Oriented Programming
+* Object Oriented Programming:
     Cell, and AutomatedSnake are new classes added to the starter code to group data/functions into individual classes. The AutomatedSnake classe inherits from the Snake class and adds functionality such as 
 	the A* search to autonomously navigate the grid, avoid obstacles and reach the target. The Snake class has been modified to include Setters and Getters. The project code is organized into classes with class attributes to hold the data, and class methods to perform tasks. All class data members are explicitly specified as public, protected, or private.
     
-* Memory Management
+* Memory Management:
   All functions in the AutomatedSnake class use pass-by-reference or pass-by-pointer to avoid unnecessary copying.
 
-* Concurrency
+* Concurrency:
   Does not apply, since the automated snake must react to the player's actions and therefore they must run sequentially. 
 
 
