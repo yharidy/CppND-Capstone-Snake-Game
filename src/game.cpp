@@ -1,11 +1,13 @@
 #include "game.h"
-#include <iostream>
 #include <future>
+#include <iostream>
 #include "SDL.h"
 
 std::mutex Game::_mtx_occupied_cells;
 
-Game::Game(std::size_t grid_width, std::size_t grid_height) : _grid_width{grid_width}, _grid_height{grid_height}
+Game::Game(std::size_t grid_width, std::size_t grid_height)
+    : _grid_width{ grid_width }
+    , _grid_height{ grid_height }
 {
   _player_snake = Snake(_initial_player_speed, _grid_width / 2.0F, _grid_height / 3.0F);
   _cpu_snake = AutomatedSnake(_initial_cpu_snake_speed, _grid_width / 3.0F, _grid_height / 2.0F);
@@ -15,8 +17,8 @@ Game::Game(std::size_t grid_width, std::size_t grid_height) : _grid_width{grid_w
   PlaceFood();
 }
 
-void Game::Run(Controller const &controller, Renderer &renderer,
-               std::size_t target_frame_duration) {
+void Game::Run(Controller const& controller, Renderer& renderer, std::size_t target_frame_duration)
+{
   Uint32 title_timestamp = SDL_GetTicks();
   Uint32 frame_start;
   Uint32 frame_end;
@@ -55,7 +57,8 @@ void Game::Run(Controller const &controller, Renderer &renderer,
   }
 }
 
-void Game::PlaceFood() {
+void Game::PlaceFood()
+{
   int x, y;
   while (true) {
     x = _random_w(_engine);
@@ -70,7 +73,8 @@ void Game::PlaceFood() {
   }
 }
 
-void Game::PlaceObstacles() {
+void Game::PlaceObstacles()
+{
   _obstacles.clear();
   int x, y;
   while (true) {
@@ -87,14 +91,15 @@ void Game::PlaceObstacles() {
   }
 }
 
-void Game::Update() {
+void Game::Update()
+{
 
-    if (!_player_snake.GetState())
-      return;
-    if (!_cpu_snake.GetState())
-      return;
+  if (!_player_snake.GetState())
+    return;
+  if (!_cpu_snake.GetState())
+    return;
   player_occupied_cells.clear();
-  
+
   // update player snake
   _player_snake.Update(&_obstacles, &player_occupied_cells);
   std::pair<float, float> player_new_head = _player_snake.GetHeadPosition();
@@ -102,12 +107,12 @@ void Game::Update() {
   int player_new_y = static_cast<int>(player_new_head.second);
 
   // check if player snake died
-  if (_cpu_snake.SnakeCell(player_new_x, player_new_y)) 
+  if (_cpu_snake.SnakeCell(player_new_x, player_new_y))
     _player_snake.SetState(false);
-  
+
   if (!_player_snake.GetState())
     return;
-  
+
   // Check if player reached food
   bool foodAquired = false;
   if (_food.x == player_new_x && _food.y == player_new_y) {
@@ -123,7 +128,7 @@ void Game::Update() {
   std::pair<float, float> cpu_new_head = _cpu_snake.GetHeadPosition();
   int cpu_new_x = static_cast<int>(cpu_new_head.first);
   int cpu_new_y = static_cast<int>(cpu_new_head.second);
-  
+
   // check if automated snake died
   if (_player_snake.SnakeCell(cpu_new_x, cpu_new_y))
     _cpu_snake.SetState(false);
@@ -138,16 +143,16 @@ void Game::Update() {
     _cpu_snake.GrowBody();
     //cpu_snake.speed += 0.01;
     foodAquired = true;
-   }
+  }
 
-   if (foodAquired) {
-     foodAquired = false;
-     if (_player_score == _level_1_score)
-       _cpu_snake.SetSpeed(1.5 * _initial_cpu_snake_speed);
-     if (_player_score >= _level_2_score)
-       PlaceObstacles();
-     PlaceFood();
-   }
+  if (foodAquired) {
+    foodAquired = false;
+    if (_player_score == _level_1_score)
+      _cpu_snake.SetSpeed(1.5 * _initial_cpu_snake_speed);
+    if (_player_score >= _level_2_score)
+      PlaceObstacles();
+    PlaceFood();
+  }
 }
 bool Game::OccupiedCell(
     const int& x, const int& y, const std::vector<SDL_Point>& obstacles, const std::vector<SDL_Point>& player_occupied_cells)
@@ -163,5 +168,11 @@ bool Game::OccupiedCell(
   }
   return false;
 }
-int Game::GetScore() const { return _player_score; }
-int Game::GetSize() const { return _player_snake.GetSize(); }
+int Game::GetScore() const
+{
+  return _player_score;
+}
+int Game::GetSize() const
+{
+  return _player_snake.GetSize();
+}
