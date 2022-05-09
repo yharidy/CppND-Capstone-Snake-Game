@@ -96,7 +96,7 @@ void Game::Update() {
   player_occupied_cells.clear();
   
   // update player snake
-  _player_snake.Update();
+  _player_snake.Update(&_obstacles, &player_occupied_cells);
   std::pair<float, float> player_new_head = _player_snake.GetHeadPosition();
   int player_new_x = static_cast<int>(player_new_head.first);
   int player_new_y = static_cast<int>(player_new_head.second);

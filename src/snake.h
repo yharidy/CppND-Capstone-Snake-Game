@@ -32,7 +32,7 @@ public:
   std::pair<float, float> GetHeadPosition() const;
   std::vector<SDL_Point> GetBody() const;
 
-  void Update();
+  void Update(const std::vector<SDL_Point>* obstacles_ptr, std::vector<SDL_Point>* player_occupied_cells_ptr);
   void GrowBody();
   bool SnakeCell(int x, int y);
 

@@ -70,8 +70,10 @@ std::vector<SDL_Point> Snake::GetBody() const
   return this->_body;
 }
 
-void Snake::Update()
+void Snake::Update(const std::vector<SDL_Point>* obstacles_ptr, std::vector<SDL_Point>* player_occupied_cells_ptr)
 {
+  _player_occupied_cells_ptr = player_occupied_cells_ptr;
+  _obstacles_ptr = obstacles_ptr;
   SDL_Point prev_cell{ static_cast<int>(_head_x), static_cast<int>(_head_y) }; // We first capture the head's cell before updating.
   UpdateHead();
   SDL_Point current_cell{ static_cast<int>(_head_x), static_cast<int>(_head_y) }; // Capture the head's cell after updating.
@@ -144,6 +146,7 @@ void Snake::UpdateBody(SDL_Point& current_head_cell, SDL_Point& prev_head_cell)
 
 void Snake::UpdateOccupiedCells()
 {
+
   std::lock_guard<std::mutex> lck(Game::_mtx_occupied_cells);
   _player_occupied_cells_ptr->push_back(SDL_Point{ static_cast<int>(_head_x), static_cast<int>(_head_y) });
   for (SDL_Point point : _body)
